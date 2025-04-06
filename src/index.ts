@@ -25,7 +25,7 @@ elements.forEach((el) => {
 			let img = el.querySelector('img')
 			if (img == null) return
 			let player = document.createElement('div')
-			el.replaceChild(player, img)
+			el.parentElement?.replaceChild(player, el)
 			console.log(target)
 			create(target, player)
 		} catch (error) {
