@@ -6,33 +6,20 @@ let elements = document.querySelectorAll('article.markdown-body a[href^="https:/
 GM.addStyle(GM_getResourceText('css'))
 
 console.log('Found elements:', elements.length)
-elements.forEach((el) => {
+elements.forEach(async (a) => {
 
-	console.log('Found element:', el.href)
-	el.addEventListener('click', async (e) => {
+	console.log('Found element:', a.href)
 
-		console.log('Clicked on:', el.href)
-		e.preventDefault()
-		e.stopPropagation()
+	try {
+		let target = a.href + '.cast'
 
-		try {
-			let target = el.href + '.cast'
-			let response = await fetch(target, { method: 'GET' })
-			if (!response.ok) {
-				throw new Error(`Failed to fetch cast file: ${response.statusText}`)
-			}
-
-			let img = el.querySelector('img')
-			if (img == null) return
-			let player = document.createElement('div')
-			el.parentElement?.replaceChild(player, el)
-			console.log(target)
-			create(target, player)
-		} catch (error) {
-			console.error('Error fetching cast file:', error)
-		}
-	}, { once: true })
-
-	el.addEventListener('click', e => { e.preventDefault() })
-	el.addEventListener('dragstart', e => { e.preventDefault() })
+		let img = a.querySelector('img')
+		if (img == null) return
+		let player = document.createElement('div')
+		a.parentElement?.replaceChild(player, a)
+		console.log(target)
+		create(target, player)
+	} catch (error) {
+		console.error('Error fetching cast file:', error)
+	}
 })
