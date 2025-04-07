@@ -1,11 +1,12 @@
-import { create } from 'asciinema-player'
-
+import css from 'asciinema-player/dist/bundle/asciinema-player.css?raw'
 
 let elements = document.querySelectorAll('article.markdown-body a[href^="https://asciinema.org/a/"]:has(img)') as NodeListOf<HTMLAnchorElement>
 
-GM.addStyle(GM_getResourceText('css'))
+GM.addStyle(css)
 
 console.log('Found elements:', elements.length)
+
+import { create } from 'asciinema-player'
 elements.forEach(async (a) => {
 
 	console.log('Found element:', a.href)

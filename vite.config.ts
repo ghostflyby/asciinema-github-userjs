@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import Userscript from 'vite-userscript-plugin'
 
-import { license, name, version } from './package.json'
+import { license, author, name, version } from './package.json'
 
 export default defineConfig({
   build: {
-    minify: false,
+    minify: false
   },
   plugins: [
     Userscript({
@@ -15,11 +15,9 @@ export default defineConfig({
         name,
         version,
         license,
+        author: author.name,
         match: 'https://github.com/*',
-        grant: ['GM.addStyle', 'GM_getResourceText'],
-        resource: [
-          ['css', 'https://cdn.jsdelivr.net/npm/asciinema-player@3.9.0/dist/bundle/asciinema-player.css'],
-        ]
+        grant: ['GM.addStyle']
       },
       server: {
         port: 3000
