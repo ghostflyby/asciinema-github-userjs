@@ -12,16 +12,16 @@ elements.forEach(async (a) => {
 	console.log('Found element:', a.href)
 
 	try {
-		let url = new URL(a.href)
+		const url = new URL(a.href)
 		url.search = ''
-		let target = url + '.cast'
+		const target = url + '.cast'
 
-		let player = document.createElement('div')
+		const player = document.createElement('div')
 		const parent = a.parentElement
 		if (parent === null) return
 		parent.removeChild(a)
-		parent.attachShadow({ mode: 'open' })
-		parent.shadowRoot?.appendChild(player)
+		const shadowRoot = parent.attachShadow({ mode: 'open' })
+		shadowRoot.appendChild(player)
 		console.log(target)
 		create(target, player)
 	} catch (error) {
