@@ -13,18 +13,28 @@ elements.forEach(async (a) => {
 		const url = new URL(a.href)
 		url.search = ''
 		const target = url + '.cast'
+		const iframeUrl = url + '/iframe'
 
 		const parent = a.parentElement
 		if (parent === null) return
 		parent.removeChild(a)
 
-		const shadowRoot = parent.attachShadow({ mode: 'open' })
 
-		const player = document.createElement('div')
-		const style = document.createElement('style')
-		style.textContent = css
-		shadowRoot.append(style, player)
-		create(target, player)
+		GM_xmlhttpRequest({
+			url: iframeUrl, method: 'GET',
+			onload: (response) => {
+				const opts = JSON.parse(response.responseText.match(/const opts = (\{.*?\});/s)?.[1] ?? '{}')
+				console.log(opts)
+				const shadowRoot = parent.attachShadow({ mode: 'open' })
+
+				const player = document.createElement('div')
+				const style = document.createElement('style')
+				style.textContent = css
+				shadowRoot.append(style, player)
+				create(target, player, { ...opts })
+			}
+		})
+
 	} catch (error) {
 		console.error('Error fetching cast file:', error)
 	}

@@ -17,7 +17,8 @@ export default defineConfig({
         license,
         author: author.name,
         match: 'https://github.com/*',
-        grant: ['GM.addStyle']
+        grant: ['GM_xmlhttpRequest'],
+        connect: 'asciinema.org',
       },
       server: {
         port: 3000
