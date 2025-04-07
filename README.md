@@ -2,7 +2,7 @@
 
 ## Overview
 
-Asciinema GitHub Userscript is a userscript that automatically embeds [Asciinema](https://asciinema.org/) players into GitHub pages. It detects asciinema.org/a links with preview in Markdown content and replaces them with an embedded player.
+Asciinema GitHub Userscript is a userscript that automatically embeds [Asciinema](https://asciinema.org/) players into GitHub. It detects asciinema.org/a links with preview in Markdown content and replaces them with an embedded player.
 
 ## Installation
 
