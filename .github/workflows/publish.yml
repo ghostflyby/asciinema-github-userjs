@@ -1,0 +1,52 @@
+name: Publish userscript to dist branch
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches:
+      - main
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build and Deploy Userscript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch the full history to allow appending commits to dist branch
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.1.0
+        with:
+          version: 10.7.1
+          run_install: true
+
+      - name: Build userscript
+        run: pnpm run build
+
+      - name: Commit and push to dist branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Switch to dist branch or create it if it doesn't exist
+          if git show-ref --quiet refs/heads/dist; then
+            git checkout dist
+          else
+            git checkout -b dist
+          fi
+
+          # Move built files to the root of the dist branch
+          mv dist/*.meta.js ./
+          mv dist/*.user.js ./
+
+          # Commit and push changes
+          git add *.meta.js *.user.js
+          git commit -m "chore: update userscript files" || echo "No changes to commit"
+          git push origin dist
