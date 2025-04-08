@@ -38,10 +38,11 @@ jobs:
           # Switch to dist branch or create it if it doesn't exist
           if git show-ref --quiet refs/heads/dist; then
             git checkout dist
-            git pull origin dist --rebase # Pull the latest changes from the remote dist branch
           else
             git checkout -b dist
           fi
+
+          git pull origin dist --rebase # Pull the latest changes from the remote dist branch
 
           # Move built files to the root of the dist branch
           mv dist/*.meta.js ./
