@@ -19,6 +19,7 @@ export default defineConfig({
         match: 'https://github.com/*',
         grant: ['GM_xmlhttpRequest'],
         connect: 'asciinema.org',
+        description: 'Asciinema player for GitHub',
       },
       server: {
         port: 3000
