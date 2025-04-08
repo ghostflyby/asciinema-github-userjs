@@ -17,14 +17,18 @@ elements.forEach(async (a) => {
 
 		const parent = a.parentElement
 		if (parent === null) return
-		parent.removeChild(a)
 
 
+
+		console.log('Fetching cast opts:', iframeUrl)
 		GM_xmlhttpRequest({
 			url: iframeUrl, method: 'GET',
 			onload: (response) => {
+				console.log('Fetched cast opts:', iframeUrl)
+
 				const opts = JSON.parse(response.responseText.match(/const opts = (\{.*?\});/s)?.[1] ?? '{}')
 				console.log(opts)
+				parent.removeChild(a)
 				const shadowRoot = parent.attachShadow({ mode: 'open' })
 
 				const player = document.createElement('div')

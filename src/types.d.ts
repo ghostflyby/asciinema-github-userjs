@@ -35,7 +35,7 @@ declare module 'asciinema-player' {
 
 	export function create(
 		source: CastSource,
-		container: HTMLElement,
+		container: ParentNode,
 		options?: AsciinemaPlayerOptions
 	): void;
 }
