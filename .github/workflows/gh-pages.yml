@@ -31,7 +31,7 @@ jobs:
       - name: 'setup pnpm'
         uses: pnpm/action-setup@v4.1.0
         with:
-          version: 7.30.0 # Specify the pnpm version to install
+          version: 10.7.1
           run_install: true # Run pnpm install automatically
       - name: build
         run: |
