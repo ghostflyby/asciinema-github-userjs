@@ -1,4 +1,4 @@
-import css from 'asciinema-player/dist/bundle/asciinema-player.css?raw'
+import playerCss from 'asciinema-player/dist/bundle/asciinema-player.css?raw'
 
 let elements = document.querySelectorAll('article.markdown-body a[href^="https://asciinema.org/a/"]:has(img)') as NodeListOf<HTMLAnchorElement>
 
@@ -32,9 +32,15 @@ elements.forEach(async (a) => {
 				const shadowRoot = parent.attachShadow({ mode: 'open' })
 
 				const player = document.createElement('div')
-				const style = document.createElement('style')
-				style.textContent = css
-				shadowRoot.append(style, player)
+				const playerStyle = document.createElement('style')
+				const hostStyle = document.createElement('style')
+				hostStyle.textContent = `
+					:host {
+					position: relative;
+					z-index: 0;
+					`
+				playerStyle.textContent = playerCss
+				shadowRoot.append(hostStyle, playerStyle, player)
 				create(target, player, { ...opts })
 			}
 		})
