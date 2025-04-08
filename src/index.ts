@@ -2,13 +2,8 @@ import playerCss from 'asciinema-player/dist/bundle/asciinema-player.css?raw'
 import { create } from 'asciinema-player'
 
 
-let dirty = true
-
-setInterval(() => {
-	if (dirty)
-		run()
-	dirty = false
-}, 500)
+let lastRunTime = 0
+const RUN_INTERVAL = 500 // 最小触发间隔（毫秒）
 
 function run() {
 	let elements = document.querySelectorAll('article.markdown-body a[href^="https://asciinema.org/a/"]:has(img)') as NodeListOf<HTMLAnchorElement>
@@ -63,7 +58,11 @@ function run() {
 }
 
 const observer = new MutationObserver(() => {
-	dirty = true
+	const now = Date.now()
+	if (now - lastRunTime > RUN_INTERVAL) {
+		lastRunTime = now
+		run()
+	}
 });
 observer.observe(document.body, {
 	childList: true,
