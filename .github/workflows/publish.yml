@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch the full history to allow appending commits to dist branch
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4.1.0
@@ -28,15 +30,19 @@ jobs:
       - name: Build userscript
         run: pnpm run build
 
-      - name: Checkout dist
-        uses: actions/checkout@v4
-        with:
-          ref: dist
-
       - name: Commit and push to dist branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Switch to dist branch or create it if it doesn't exist
+          if git show-ref --quiet refs/heads/dist; then
+            git checkout dist
+          else
+            git checkout -b dist
+          fi
+
+          git pull origin dist --rebase # Pull the latest changes from the remote dist branch
 
           # Move built files to the root of the dist branch
           mv dist/*.meta.js ./
