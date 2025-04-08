@@ -32,7 +32,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: userscript-files
-          path: dist/*.meta.js,dist/*.user.js
+          path: |
+            dist/*.meta.js
+            dist/*.user.js
 
   publish:
     name: Deploy to dist branch
