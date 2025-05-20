@@ -7,7 +7,7 @@ Asciinema GitHub Userscript is a userscript that automatically embeds [Asciinema
 ## Installation
 
 1. Install a userscript manager for your browser, such as [Tampermonkey](https://www.tampermonkey.net/)
-2. install [https://github.com/ghostflyby/asciinema-github-userjs/blob/dist/asciinema-github.user.js](https://github.com/ghostflyby/asciinema-github-userjs/blob/dist/asciinema-github.meta.js)
+2. install [https://github.com/ghostflyby/asciinema-github-userjs/blob/dist/asciinema-github.user.js](https://raw.githubusercontent.com/ghostflyby/asciinema-github-userjs/refs/heads/dist/asciinema-github.user.js)
 
 ## Usage
 
