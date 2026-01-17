@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        asciinema-github
-// @version     0.0.3
+// @version     0.0.4
 // @license     MIT
 // @author      ghostflyby
 // @match       https://github.com/*
