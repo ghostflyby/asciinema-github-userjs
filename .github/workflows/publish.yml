@@ -24,6 +24,7 @@ jobs:
         with:
           version: 10.7.1
           run_install: true
+          cache: true
 
       - name: Build userscript
         run: pnpm run build
